@@ -71,7 +71,7 @@ def main():
     url = 'http://'+socket.gethostbyname(socket.gethostname())+':'+str(port)
     populate_clipboard(url)
     logging.info('%s copied to your clipboard' % url)
-    bottle.run(app=app, host='0.0.0.0', port=int(port), reloader=True)
+    bottle.run(app=app, host='0.0.0.0', port=int(port))
 
 if __name__ == '__main__':
     main()
