@@ -42,16 +42,25 @@ class WebServer(object):
         bottle.route("/dl")(obj.download_file)
         return obj
 
-    def list_dir(self):
-        filelist = [x for x in os.listdir(self.directory) if os.path.isfile(os.path.join(self.directory, x))]
-        return filelist
+    def list_dir(self, directory):
+        filelist = [x for x in os.listdir(directory) if os.path.isfile(os.path.join(directory, x))]
+        dirlist = [x for x in os.listdir(directory) if os.path.isdir(os.path.join(directory, x))]
+        return dirlist, filelist
 
     def get_static_css_path(self, file, path):
         return bottle.static_file(file, root=os.path.join(appPath,'static',path))
 
     def render_directory(self):
-        filelist = self.list_dir()
-        return bottle.template('index', dirlist=filelist)
+        ldir = os.path.join(self.directory, bottle.request.GET.get('dir','/')[1:])
+        dirlist, filelist = self.list_dir(ldir)
+        if ldir != self.directory:
+            ldir = '/'+ldir.split(self.directory)[1]+'/'
+        else:
+            ldir = '/'
+        return bottle.template('index',
+                               curr_dir=ldir, 
+                               dirlist=dirlist, 
+                               filelist=filelist)
 
     def download_file(self):
         filename = bottle.request.GET.get('filename')

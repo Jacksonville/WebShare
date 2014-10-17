@@ -12,9 +12,17 @@
         <h1>AD Hoc File Share</h1>
       </div>
     </div>
-    %for file in dirlist:
     <div class="row">
-        <a href="/dl?filename={{file}}">{{file}}</a>
+        <a href="/?{{curr_dir.replace(curr_dir.split('/')[-1],'')}}">Up</a>
+    </div>
+    %for dir in dirlist:
+    <div class="row">
+        <a href="/?dir={{curr_dir}}{{dir}}">{{dir}}</a>
+    </div>
+    %end
+    %for file in filelist:
+    <div class="row">
+        <a href="/dl?filename={{curr_dir}}{{file}}">{{file}}</a>
     </div>
     %end
     <script src="/static/js/vendor/jquery.js"></script>
