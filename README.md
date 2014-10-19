@@ -6,6 +6,6 @@ This process makes use of the [bottle](http://bottlepy.org/docs/dev/index.html) 
 Directory traversal is now supported but I have only been able to test on Ubuntu thus far.
 
 To execute, run the following
-`python fshare.py -p [path to directory]`
+`python fshare.py [path to directory]`
 
 Hope you find this useful.

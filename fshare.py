@@ -67,10 +67,8 @@ class WebServer(object):
         return bottle.static_file(filename, root=self.directory, download=filename)
 
 def main():
-    parser = argparse.ArgumentParser(description='Quickly share files via html')
-    parser.add_argument('--path', '-p',
-                        dest='path',
-                        default=os.getcwd(),
+    parser = argparse.ArgumentParser(description='Quickly share files via web browser')
+    parser.add_argument('path',
                         help='directory that you would like to share')
     args = parser.parse_args()
     port = get_port()
