@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="row">
-        <a href="/?{{curr_dir.replace(curr_dir.split('/')[-1],'')}}">Up</a>
+        <a href="/?dir={{curr_dir[:-1].replace(curr_dir[:-1].split('/')[-1],'')[:-1]}}">Up</a>
     </div>
     %for dir in dirlist:
     <div class="row">
@@ -28,7 +28,9 @@
     <script src="/static/js/vendor/jquery.js"></script>
     <script src="/static/js/foundation.min.js"></script>
     <script>
-      $(document).foundation();
+      $(function(){
+          $(document).foundation();
+      });
     </script>
 </body>
 </html>
