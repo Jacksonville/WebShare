@@ -34,10 +34,10 @@ def populate_clipboard(text):
 class WebServer(object):
     def __init__(self, directory):
         self.directory = directory
-        
+
     def __new__(cls, *args, **kwargs):
         obj = super(WebServer, cls).__new__(cls, *args, **kwargs)
-        bottle.route('/static/:path/:file#.*#')(obj.get_static_css_path)
+        bottle.route('/static/:path/:file#.*#')(obj.get_static_files)
         bottle.route("/")(obj.render_directory)
         bottle.route("/dl")(obj.download_file)
         return obj
@@ -47,7 +47,7 @@ class WebServer(object):
         dirlist = [x for x in os.listdir(directory) if os.path.isdir(os.path.join(directory, x))]
         return dirlist, filelist
 
-    def get_static_css_path(self, file, path):
+    def get_static_files(self, file, path):
         return bottle.static_file(file, root=os.path.join(appPath,'static',path))
 
     def render_directory(self):
@@ -58,8 +58,8 @@ class WebServer(object):
         else:
             ldir = '/'
         return bottle.template('index',
-                               curr_dir=ldir, 
-                               dirlist=dirlist, 
+                               curr_dir=ldir,
+                               dirlist=dirlist,
                                filelist=filelist)
 
     def download_file(self):
